@@ -1,0 +1,19 @@
+{
+  "name": "boardgamer",
+  "version": "0.0.1",
+  "description": "Create own boardgame rules with ease",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kpj",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kpj/BoardGamer.git"
+  },
+  "dependencies": {
+    "yamljs": "latest"
+  }
+}
