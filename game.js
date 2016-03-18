@@ -73,6 +73,50 @@ class Board {
       y: viewport.origin.y + viewport.origin.yf * pos.y
     }
   }
+
+  freeLOS (startPos, endPos) {
+    /*
+     * Determine whether there is a free line of sight
+     */
+
+    console.log(startPos, endPos)
+
+    if (startPos.x === endPos.x) {
+      let fac = undefined
+      if (startPos.y < endPos.y) {
+        fac = 1
+      } else if (startPos.y > endPos.y) {
+        fac = -1
+      }
+
+      for (let y = parseInt(startPos.y)+1; y < endPos.y; y += fac * 1) {
+        if (this.board[y][startPos.x] !== undefined) {
+          return false
+        }
+      }
+
+      return true
+    }
+
+    if (startPos.y === endPos.y) {
+      let fac = undefined
+      if (startPos.x < endPos.x) {
+        fac = 1
+      } else if (startPos.x > endPos.x) {
+        fac = -1
+      }
+
+      for (let x = parseInt(startPos.x)+1; x < endPos.x; x += fac * 1) {
+        if (this.board[startPos.y][x] !== undefined) {
+          return false
+        }
+      }
+
+      return true
+    }
+
+    return false
+  }
 }
 
 class Game {
@@ -204,6 +248,16 @@ class Game {
           }
         } else {
           contained = true
+        }
+      }
+
+      if ('condition' in move) {
+        if (move.condition === 'infinity') {
+          let sign_move = {x: Math.sign(rel_move.x), y: Math.sign(rel_move.y)}
+
+          if (move.x === sign_move.x && move.y === sign_move.y) {
+            contained = this.board.freeLOS(startPos, endPos)
+          }
         }
       }
     }
