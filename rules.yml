@@ -17,7 +17,9 @@ players:
           yf: -1
 pieces:
     - name: King
-      symbol: K
+      symbols:
+          - ♔
+          - ♚
       initialPositions:
           - x: 4
             y: 0
@@ -39,19 +41,25 @@ pieces:
           - x: -1
             y: 1
     - name: Queen
-      symbol: Q
+      symbols:
+          - ♕
+          - ♛
       initialPositions:
           - x: 3
             y: 0
     - name: Bishop
-      symbol: B
+      symbols:
+          - ♗
+          - ♝
       initialPositions:
           - x: 2
             y: 0
           - x: 5
             y: 0
     - name: Knight
-      symbol: K
+      symbols:
+          - ♘
+          - ♞
       initialPositions:
           - x: 1
             y: 0
@@ -75,14 +83,18 @@ pieces:
           - x: -1
             y: -2
     - name: Rook
-      symbol: R
+      symbols:
+          - ♖
+          - ♜
       initialPositions:
           - x: 0
             y: 0
           - x: 7
             y: 0
     - name: pawn
-      symbol: P
+      symbols:
+          - ♙
+          - ♟
       initialPositions:
           - x: 0
             y: 1

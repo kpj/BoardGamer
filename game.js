@@ -8,9 +8,11 @@ class Piece {
   /*
    * Single piece on the board
    */
-  constructor (spec, owner) {
+  constructor (spec, owner, playerNum) {
     this.spec = spec
     this.owner = owner
+
+    this.sprite = this.spec.symbols[playerNum]
   }
 }
 
@@ -97,7 +99,7 @@ class Game {
         if (cell === undefined) {
           process.stdout.write('_')
         } else {
-          process.stdout.write(String(cell.spec.symbol))
+          process.stdout.write(String(cell.sprite))
         }
       }
 
@@ -198,12 +200,14 @@ class GameCreator {
     // setup Board
     let board = new Board(this.spec.fieldSize.width, this.spec.fieldSize.height)
 
+    let pc = 0
     for (let player of this.spec.players) {
       for (let piece of this.spec.pieces) {
         for (let pos of piece.initialPositions) {
-          board.setPiece(player, pos, new Piece(piece, player))
+          board.setPiece(player, pos, new Piece(piece, player, pc))
         }
       }
+      pc++
     }
 
     game.board = board
