@@ -1,4 +1,6 @@
-var YAML = require('yamljs')
+'use strict'
+
+let YAML = require('yamljs')
 
 class Piece {
   /*
@@ -16,9 +18,9 @@ class Board {
   constructor (width, height) {
     this.board = []
 
-    for (var i = 0; i < width; ++i) {
+    for (let i = 0; i < width; ++i) {
       this.board.push([])
-      for (var j = 0; j < height; ++j) {
+      for (let j = 0; j < height; ++j) {
         this.board[this.board.length-1].push(undefined)
       }
     }
@@ -44,8 +46,8 @@ class Game {
       return
     }
 
-    for (var row of this.board.board) {
-      for (var cell of row) {
+    for (let row of this.board.board) {
+      for (let cell of row) {
         if (cell === undefined) {
           process.stdout.write('_')
         } else {
@@ -66,13 +68,13 @@ class GameCreator {
   }
 
   generateGame () {
-    var game = new Game(this.spec.name)
+    let game = new Game(this.spec.name)
 
     // setup Board
-    var board = new Board(this.spec.fieldSize.width, this.spec.fieldSize.height)
+    let board = new Board(this.spec.fieldSize.width, this.spec.fieldSize.height)
 
-    for (var piece of this.spec.pieces) {
-      for(var pos of piece.initialPositions) {
+    for (let piece of this.spec.pieces) {
+      for(let pos of piece.initialPositions) {
         board.setPiece(pos, new Piece(piece))
       }
     }
@@ -83,7 +85,7 @@ class GameCreator {
   }
 }
 
-var gc = new GameCreator('rules.yml')
-var game = gc.generateGame()
+let gc = new GameCreator('rules.yml')
+let game = gc.generateGame()
 
 game.showState()
