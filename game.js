@@ -85,8 +85,9 @@ class Game {
 
     // print header
     process.stdout.write('  ')
-    for (let ind in this.board.board) {
-      process.stdout.write(ind)
+    let [nlm, _] = utils.getNumberLetterMap()
+    for (let ind = 0; ind < this.board.board.length; ++ind) {
+      process.stdout.write(nlm.get(ind))
     }
     console.log()
 
@@ -111,8 +112,8 @@ class Game {
 
     // print footer
     process.stdout.write('  ')
-    for (let ind in this.board.board) {
-      process.stdout.write(ind)
+    for (let ind = 0; ind < this.board.board.length; ++ind) {
+      process.stdout.write(nlm.get(ind))
     }
     console.log()
   }
