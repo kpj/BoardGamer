@@ -177,12 +177,17 @@ class Game {
       throw 'Trying to play opponent\'s piece'
     }
 
+    // check if we can go to target field
+    let goalPiece = this.board.getPieceAbs(endPos)
+    if (goalPiece !== undefined && piece.owner.name === goalPiece.owner.name) {
+      throw 'Trying to remove own piece'
+    }
+
+    // check if move is valid
     let rel_move = {
       x: (endPos.x - startPos.x) * curPlayer.origin.xf,
       y: (endPos.y - startPos.y) * curPlayer.origin.yf
     }
-
-    // check if move is valid
     if (!utils.listContainsDict(piece.spec.moves, rel_move)) {
       throw 'Attempting invalid move'
     }
