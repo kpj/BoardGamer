@@ -1,0 +1,63 @@
+name: Chess
+fieldSize:
+    width: 8
+    height: 8
+pieces:
+    - name: King
+      symbol: K
+      initialPositions:
+          - x: 4
+            y: 0
+    - name: Queen
+      symbol: Q
+      initialPositions:
+          - x: 3
+            y: 0
+    - name: Bishop
+      symbol: B
+      initialPositions:
+          - x: 2
+            y: 0
+          - x: 5
+            y: 0
+    - name: Knight
+      symbol: K
+      initialPositions:
+          - x: 1
+            y: 0
+          - x: 6
+            y: 0
+    - name: Rook
+      symbol: R
+      initialPositions:
+          - x: 0
+            y: 0
+          - x: 7
+            y: 0
+    - name: pawn
+      symbol: P
+      initialPositions:
+          - x: 0
+            y: 1
+          - x: 1
+            y: 1
+          - x: 2
+            y: 1
+          - x: 3
+            y: 1
+          - x: 4
+            y: 1
+          - x: 5
+            y: 1
+          - x: 6
+            y: 1
+          - x: 7
+            y: 1
+      moves:
+          - x: 0
+            y: 1
+      hits:
+          - x: 1
+            y: 1
+          - x: -1
+            y: 1
