@@ -16,14 +16,14 @@ function readCommandsfromStdin (query) {
   if (fromX === undefined || fromY === undefined) {
     return
   }
-  let startPos = {x: lnm.get(fromX.trim()), y: fromY.trim()}
+  let startPos = {x: lnm.get(fromX.trim()), y: parseInt(fromY.trim())}
 
 
   let [toX, toY] = toStr.trim().split(' ')
   if (toX === undefined || toY === undefined) {
     return
   }
-  let endPos = {x: lnm.get(toX.trim()), y: toY.trim()}
+  let endPos = {x: lnm.get(toX.trim()), y: parseInt(toY.trim())}
 
   return [startPos, endPos]
 }

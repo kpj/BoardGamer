@@ -78,18 +78,14 @@ class Board {
     /*
      * Determine whether there is a free line of sight
      */
-
-    console.log(startPos, endPos)
-
+    // vertical movement
     if (startPos.x === endPos.x) {
-      let fac = undefined
+      let fac = -1
       if (startPos.y < endPos.y) {
         fac = 1
-      } else if (startPos.y > endPos.y) {
-        fac = -1
       }
 
-      for (let y = parseInt(startPos.y)+1; y < endPos.y; y += fac * 1) {
+      for (let y = startPos.y+1*fac; y < endPos.y; y += fac * 1) {
         if (this.board[y][startPos.x] !== undefined) {
           return false
         }
@@ -98,18 +94,41 @@ class Board {
       return true
     }
 
+    // horizontal movement
     if (startPos.y === endPos.y) {
-      let fac = undefined
+      let fac = -1
       if (startPos.x < endPos.x) {
         fac = 1
-      } else if (startPos.x > endPos.x) {
-        fac = -1
       }
 
-      for (let x = parseInt(startPos.x)+1; x < endPos.x; x += fac * 1) {
+      for (let x = startPos.x+1*fac; x < endPos.x; x += fac * 1) {
         if (this.board[startPos.y][x] !== undefined) {
           return false
         }
+      }
+
+      return true
+    }
+
+    // diagonal movement
+    if (startPos.x-startPos.y === endPos.x-endPos.y) {
+      let xfac = -1, yfac = -1
+
+      if (startPos.x < endPos.x) {
+        xfac = 1
+      }
+      if (startPos.y < endPos.y) {
+        yfac = 1
+      }
+
+      let x = startPos.x+1*xfac, y = startPos.y+1*yfac
+      while (x !== endPos.x && y !== endPos.y) {
+        if (this.board[y][x] !== undefined) {
+          return false
+        }
+
+        x += xfac * 1
+        y += yfac * 1
       }
 
       return true

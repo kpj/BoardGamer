@@ -60,6 +60,18 @@ pieces:
           - x: -1
             y: 0
             condition: infinity
+          - x: 1
+            y: 1
+            condition: infinity
+          - x: 1
+            y: -1
+            condition: infinity
+          - x: -1
+            y: 1
+            condition: infinity
+          - x: -1
+            y: -1
+            condition: infinity
     - name: Bishop
       symbols:
           - ♗
@@ -69,6 +81,19 @@ pieces:
             y: 0
           - x: 5
             y: 0
+      moves:
+          - x: 1
+            y: 1
+            condition: infinity
+          - x: 1
+            y: -1
+            condition: infinity
+          - x: -1
+            y: 1
+            condition: infinity
+          - x: -1
+            y: -1
+            condition: infinity
     - name: Knight
       symbols:
           - ♘
