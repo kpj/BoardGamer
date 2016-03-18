@@ -6,8 +6,9 @@ class Piece {
   /*
    * Single piece on the board
    */
-  constructor (spec) {
+  constructor (spec, owner) {
     this.spec = spec
+    this.owner = owner
   }
 }
 
@@ -17,6 +18,7 @@ class Board {
    */
   constructor (width, height) {
     this.board = []
+    this.player = undefined
 
     for (let i = 0; i < width; ++i) {
       this.board.push([])
@@ -27,7 +29,31 @@ class Board {
   }
 
   setPiece (pos, piece) {
-    this.board[pos.y][pos.x] = piece
+    let transPos = this.transformCoordinates(pos)
+
+    if (this.board[transPos.y][transPos.x] !== undefined) {
+      throw `Board position ${transPos.x}x${transPos.y} in use`
+    }
+
+    this.board[transPos.y][transPos.x] = piece
+  }
+
+  setCurrentPlayer (player) {
+    this.player = player
+  }
+
+  transformCoordinates (pos) {
+    /*
+     * Transform given coordinates accodring to current player
+     */
+    if (this.player === undefined) {
+      throw 'No player set'
+    }
+
+    return {
+      x: this.player.origin.x + this.player.origin.xf * pos.x,
+      y: this.player.origin.y + this.player.origin.yf * pos.y
+    }
   }
 }
 
@@ -42,8 +68,7 @@ class Game {
 
   showState () {
     if (this.board === undefined) {
-      console.log('No board set')
-      return
+      throw 'No board set yet'
     }
 
     for (let row of this.board.board) {
@@ -73,9 +98,12 @@ class GameCreator {
     // setup Board
     let board = new Board(this.spec.fieldSize.width, this.spec.fieldSize.height)
 
-    for (let piece of this.spec.pieces) {
-      for(let pos of piece.initialPositions) {
-        board.setPiece(pos, new Piece(piece))
+    for (let player of this.spec.players) {
+      for (let piece of this.spec.pieces) {
+        for (let pos of piece.initialPositions) {
+          board.setCurrentPlayer(player)
+          board.setPiece(pos, new Piece(piece, player))
+        }
       }
     }
 

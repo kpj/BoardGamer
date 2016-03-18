@@ -2,6 +2,19 @@ name: Chess
 fieldSize:
     width: 8
     height: 8
+players:
+    - name: white
+      origin:
+          x: 0
+          y: 0
+          xf: 1
+          yf: 1
+    - name: black
+      origin:
+          x: 7
+          y: 7
+          xf: -1
+          yf: -1
 pieces:
     - name: King
       symbol: K
