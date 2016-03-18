@@ -1,5 +1,6 @@
 'use strict'
 
+let utils = require('./utils.js')
 let Game = require('./game.js')
 
 
@@ -8,8 +9,16 @@ let game = gc.generateGame()
 
 game.startGame()
 
-game.showState()
-game.handleInput({x: 0, y: 1}, {x: 0, y: 2})
-game.showState()
-game.handleInput({x: 0, y: 1}, {x: 0, y: 2})
-game.showState()
+while (true) {
+  game.showState()
+  console.log()
+
+  let res = utils.readCommandsfromStdin(`[${game.getCurrentPlayerName()}] Move: `)
+  if (res === undefined) {
+    console.log('Invalid input\n')
+  } else {
+    let [startPos, endPos] = res
+    game.handleInput(startPos, endPos)
+  }
+  console.log('#######################')
+}

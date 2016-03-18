@@ -4,7 +4,7 @@
   "description": "Create own boardgame rules with ease",
   "main": "index.js",
   "scripts": {
-    "start": "node --harmony index.js",
+    "start": "node --harmony --harmony_destructuring index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kpj",
@@ -14,6 +14,7 @@
     "url": "git://github.com/kpj/BoardGamer.git"
   },
   "dependencies": {
+    "readline-sync": "^1.4.1",
     "yamljs": "latest"
   }
 }

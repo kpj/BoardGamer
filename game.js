@@ -45,7 +45,7 @@ class Board {
     return this.board[transPos.y][transPos.x]
   }
 
-  movePiece(viewport, startPos, endPos) {
+  movePiece (viewport, startPos, endPos) {
     let transStartPos = this.transformCoordinates(viewport, startPos)
     let transEndPos = this.transformCoordinates(viewport, endPos)
 
@@ -81,7 +81,18 @@ class Game {
       throw 'No board set yet'
     }
 
+    // print header
+    process.stdout.write('  ')
+    for (let ind in this.board.board) {
+      process.stdout.write(ind)
+    }
+    console.log()
+
+    // print board with margins
+    let c = 0
     for (let row of this.board.board) {
+      process.stdout.write(`${c} `)
+
       for (let cell of row) {
         if (cell === undefined) {
           process.stdout.write('_')
@@ -89,8 +100,19 @@ class Game {
           process.stdout.write(String(cell.spec.symbol))
         }
       }
+
+      process.stdout.write(` ${c}`)
+      c++
+
       console.log()
     }
+
+    // print footer
+    process.stdout.write('  ')
+    for (let ind in this.board.board) {
+      process.stdout.write(ind)
+    }
+    console.log()
   }
 
   startGame () {
@@ -154,6 +176,10 @@ class Game {
 
     // do move
     this.board.movePiece(curPlayer, startPos, endPos)
+  }
+
+  getCurrentPlayerName () {
+    return this.players[this.currentPlayerIndex].name
   }
 }
 
