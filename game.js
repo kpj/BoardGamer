@@ -166,6 +166,7 @@ class Game {
 
     let curPlayer = this.players[this.currentPlayerIndex]
     let piece = this.board.getPieceAbs(startPos)
+    let goalPiece = this.board.getPieceAbs(endPos)
 
     // check if there is a piece at all
     if (piece === undefined) {
@@ -178,7 +179,6 @@ class Game {
     }
 
     // check if we can go to target field
-    let goalPiece = this.board.getPieceAbs(endPos)
     if (goalPiece !== undefined && piece.owner.name === goalPiece.owner.name) {
       throw 'Trying to remove own piece'
     }
@@ -188,7 +188,27 @@ class Game {
       x: (endPos.x - startPos.x) * curPlayer.origin.xf,
       y: (endPos.y - startPos.y) * curPlayer.origin.yf
     }
-    if (!utils.listContainsDict(piece.spec.moves, rel_move)) {
+
+    let contained = false
+    for (let move of piece.spec.moves) {
+      if (move.x === rel_move.x && move.y === rel_move.y) {
+        if ('condition' in move) {
+          if (move.condition === 'free') {
+            if (goalPiece === undefined) {
+              contained = true
+            }
+          } else if (move.condition === 'occupied') {
+            if (goalPiece !== undefined) {
+              contained = true
+            }
+          }
+        } else {
+          contained = true
+        }
+      }
+    }
+
+    if (!contained) {
       throw 'Attempting invalid move'
     }
 

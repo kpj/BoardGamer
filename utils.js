@@ -3,21 +3,6 @@
 let readlineSync = require('readline-sync')
 
 
-function listContainsDict (list, ele) {
-  // TODO: is there a better way? :-(
-
-  if (list === undefined) {
-    return false
-  }
-
-  for (let e of list) {
-    if (e.x === ele.x && e.y === ele.y) {
-      return true
-    }
-  }
-  return false
-}
-
 function readCommandsfromStdin (query) {
   let inp = readlineSync.question(query)
   let [_, lnm] = getNumberLetterMap()
@@ -55,6 +40,5 @@ function getNumberLetterMap () {
   return [map1, map2]
 }
 
-module.exports.listContainsDict = listContainsDict
 module.exports.readCommandsfromStdin = readCommandsfromStdin
 module.exports.getNumberLetterMap = getNumberLetterMap
