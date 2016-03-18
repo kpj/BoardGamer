@@ -42,17 +42,26 @@ class Board {
     this.board[transPos.y][transPos.x] = piece
   }
 
-  getPiece (viewport, pos) {
+  getPieceRel (viewport, pos) {
     let transPos = this.transformCoordinates(viewport, pos)
     return this.board[transPos.y][transPos.x]
   }
 
-  movePiece (viewport, startPos, endPos) {
+  movePieceRel (viewport, startPos, endPos) {
     let transStartPos = this.transformCoordinates(viewport, startPos)
     let transEndPos = this.transformCoordinates(viewport, endPos)
 
     this.board[transEndPos.y][transEndPos.x] = this.board[transStartPos.y][transStartPos.x]
     this.board[transStartPos.y][transStartPos.x] = undefined
+  }
+
+  getPieceAbs (pos) {
+    return this.board[pos.y][pos.x]
+  }
+
+  movePieceAbs (startPos, endPos) {
+    this.board[endPos.y][endPos.x] = this.board[startPos.y][startPos.x]
+    this.board[startPos.y][startPos.x] = undefined
   }
 
   transformCoordinates (viewport, pos) {
@@ -156,7 +165,7 @@ class Game {
     }
 
     let curPlayer = this.players[this.currentPlayerIndex]
-    let piece = this.board.getPiece(curPlayer, startPos)
+    let piece = this.board.getPieceAbs(startPos)
 
     // check if there is a piece at all
     if (piece === undefined) {
@@ -179,7 +188,7 @@ class Game {
     }
 
     // do move
-    this.board.movePiece(curPlayer, startPos, endPos)
+    this.board.movePieceAbs(startPos, endPos)
   }
 
   getCurrentPlayerName () {
