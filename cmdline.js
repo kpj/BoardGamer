@@ -3,7 +3,6 @@
 let utils = require('./utils.js')
 let Game = require('./game.js')
 
-
 let gc = new Game.GameCreator('rules.yml')
 let game = gc.generateGame()
 

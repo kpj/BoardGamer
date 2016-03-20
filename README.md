@@ -2,4 +2,9 @@
 
 Simple boardgame creator.
 
-Run with `npm start`.
+Run with
+```
+npm install
+npm run build
+npm start
+```
