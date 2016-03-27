@@ -1,8 +1,10 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
+
 import Board from './field.jsx'
 
 if (typeof document !== 'undefined') {
-  React.render(<Board />, document.body)
+  ReactDOM.render(<Board />, document.body)
 }
 
 module.exports = Board

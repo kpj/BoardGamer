@@ -1,6 +1,6 @@
 'use strict'
 
-let ReactToHtmlPlugin = require('react-to-html-webpack-plugin')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -8,7 +8,7 @@ module.exports = {
     './app/index.jsx'
   ],
   output: {
-    filename: 'index.js',
+    filename: 'bundle.js',
     path: __dirname + '/dist',
     library: 'Board',
     libraryTarget: 'umd'
@@ -26,7 +26,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new ReactToHtmlPlugin('index.html', 'index.js')
-  ]
+  plugins: [new HtmlWebpackPlugin()]
 }
