@@ -5,9 +5,7 @@ import IO from 'socket.io-client'
 class Client {
   constructor (stateCallback) {
     this.socket = IO.connect()
-
     this.setState = stateCallback
-    this.board = []
 
     this.initSocketEvents()
   }
@@ -15,13 +13,19 @@ class Client {
   initSocketEvents () {
     let self = this
 
-    this.socket.on('commence', function (boardData) {
-      self.board = boardData
-      self.setState({board: self.board})
-    })
+    this.socket.on('commence', function (data) {
+      this.setState({
+        board: data.board,
+        player: data.player.name
+      })
+    }.bind(this))
 
-    this.socket.on('error', function (data) {
-      console.log(data.msg)
+    this.socket.on('boardUpdate', function (data) {
+      this.setState({board: data.board})
+    }.bind(this))
+
+    this.socket.on('error', function (err) {
+      console.log(err)
     })
 
     this.socket.on('stateUpdate', function (state) {

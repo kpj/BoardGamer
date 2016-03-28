@@ -33,7 +33,8 @@ class Board extends React.Component {
     this.state = {
       board: [[]],
       firstClick: undefined,
-      currentPlayer: 'undefined'
+      currentPlayer: 'undefined',
+      player: 'nameless player'
     }
   }
 
@@ -68,7 +69,7 @@ class Board extends React.Component {
       'div', {
         className: 'root'
       }, [
-        React.createElement('div', {key: 'statusBar'}, `Current player: ${this.state.currentPlayer}`),
+        React.createElement('div', {key: 'statusBar'}, `Current player: ${this.state.currentPlayer} (you are ${this.state.player})`),
         React.DOM.div({className: 'board', key: 'board'}, cells)
       ]
     )
