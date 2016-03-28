@@ -3,8 +3,16 @@
 let gs = require('./gameServer.js')
 
 class Manager {
-  constructor () {
+  constructor (io) {
     this.clients = []
+
+    this.setupEventHandlers(io)
+  }
+
+  setupEventHandlers (io) {
+    io.on('connection', (socket) => {
+      this.addClient(socket)
+    })
   }
 
   addClient (socket) {

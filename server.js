@@ -23,11 +23,7 @@ let server = http.Server(app)
 let io = socketIO(server)
 
 let sessions = require('./sessions.js')
-let manager = new sessions.Manager()
-
-io.on('connection', function (socket) {
-  manager.addClient(socket)
-})
+let manager = new sessions.Manager(io)
 
 server.listen(process.env.PORT || 3000, function () {
   console.log('listening on *:3000')
