@@ -2,8 +2,13 @@
 
 Simple boardgame creator.
 
-Run with
+Run server with
 ```
 npm install
 npm start
+```
+
+Run tests with
+```
+npm test
 ```

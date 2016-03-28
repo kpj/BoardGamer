@@ -111,7 +111,7 @@ class Board {
     }
 
     // diagonal movement
-    if (startPos.x-startPos.y === endPos.x-endPos.y) {
+    if (Math.abs(startPos.x-endPos.x) === Math.abs(startPos.y-endPos.y)) {
       let xfac = -1, yfac = -1
 
       if (startPos.x < endPos.x) {
@@ -144,7 +144,7 @@ class Board {
       outp.push([])
       for (let cell of row) {
         if (cell === undefined) {
-          outp[outp.length-1].push('')
+          outp[outp.length-1].push(' ')
         } else {
           outp[outp.length-1].push(String(cell.sprite))
         }
@@ -244,6 +244,11 @@ class Game {
       throw 'Game has not started yet'
     }
 
+    // sanitize input
+    startPos = {x: parseInt(startPos.x), y: parseInt(startPos.y)}
+    endPos = {x: parseInt(endPos.x), y: parseInt(endPos.y)}
+
+    // get some important information
     let curPlayer = this.players[this.currentPlayerIndex]
     let piece = this.board.getPieceAbs(startPos)
     let goalPiece = this.board.getPieceAbs(endPos)
@@ -264,6 +269,19 @@ class Game {
     }
 
     // check if move is valid
+    if (!this.verifyMove(startPos, endPos)) {
+      throw 'Attempting invalid move'
+    }
+
+    // do move
+    this.board.movePieceAbs(startPos, endPos)
+  }
+
+  verifyMove (startPos, endPos) {
+    let curPlayer = this.players[this.currentPlayerIndex]
+    let piece = this.board.getPieceAbs(startPos)
+    let goalPiece = this.board.getPieceAbs(endPos)
+
     let rel_move = {
       x: (endPos.x - startPos.x) * curPlayer.origin.xf,
       y: (endPos.y - startPos.y) * curPlayer.origin.yf
@@ -298,12 +316,7 @@ class Game {
       }
     }
 
-    if (!contained) {
-      throw 'Attempting invalid move'
-    }
-
-    // do move
-    this.board.movePieceAbs(startPos, endPos)
+    return contained
   }
 
   getCurrentPlayerName () {
