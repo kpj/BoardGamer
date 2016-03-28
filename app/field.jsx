@@ -4,7 +4,6 @@ import Client from './client.js'
 class Cell extends React.Component {
   constructor (props) {
     super(props)
-    console.log(props)
   }
 
   handleClick (event) {
@@ -14,7 +13,7 @@ class Cell extends React.Component {
   render () {
     let rowMarker = (this.props.x % 2 == 0) ? 'evenRow' : 'oddRow'
     return React.createElement(
-      'span', {
+      'div', {
         className: `board-cell ${rowMarker}`,
         onClick: this.handleClick.bind(this)
       }, this.props.value)
@@ -29,11 +28,6 @@ class Board extends React.Component {
     this.state = {
       board: [[]]
     }
-  }
-
-  setState (key, val) {
-    this.state[key] = val
-    this.forceUpdate()
   }
 
   handleCellClick (row, col) {

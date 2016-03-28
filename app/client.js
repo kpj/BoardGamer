@@ -17,7 +17,7 @@ class Client {
 
     this.socket.on('commence', function (boardData) {
       self.board = boardData
-      self.setState('board', self.board)
+      self.setState({'board': self.board})
     })
   }
 }
