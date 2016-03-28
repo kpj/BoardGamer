@@ -3,8 +3,31 @@
   <head>
     <meta charset="UTF-8">
     <title>BoardGamer</title>
+
+    <style>
+      .board {
+        display: grid;
+        grid-template-columns: repeat(8, 80px);
+        grid-gap: 0px;
+      }
+
+      .board-cell {
+        width: 80px;
+        height: 80px;
+
+        background-color: #444;
+        font-size: 450%;
+
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .board .evenRow:nth-child(2n),
+      .board .oddRow:nth-child(2n+1) {
+        background-color: #ccc;
+      }
+    </style>
   </head>
   <body>
-    <script src="dist/bundle.js"></script>
   </body>
 </html>

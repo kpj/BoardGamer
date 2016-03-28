@@ -22,8 +22,11 @@ app.use(require('webpack-hot-middleware')(compiler, {
 let server = http.Server(app)
 let io = socketIO(server)
 
+let sessions = require('./sessions.js')
+let manager = new sessions.Manager()
+
 io.on('connection', function (socket) {
-  console.log('a user connected')
+  manager.addClient(socket)
 })
 
 server.listen(process.env.PORT || 3000, function () {

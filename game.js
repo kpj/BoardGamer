@@ -136,6 +136,23 @@ class Board {
 
     return false
   }
+
+  asStringList () {
+    let outp = []
+
+    for (let row of this.board) {
+      outp.push([])
+      for (let cell of row) {
+        if (cell === undefined) {
+          outp[outp.length-1].push('')
+        } else {
+          outp[outp.length-1].push(String(cell.sprite))
+        }
+      }
+    }
+
+    return outp
+  }
 }
 
 class Game {
