@@ -4,6 +4,7 @@ let gs = require('./gameServer.js')
 
 class Manager {
   constructor (io) {
+    this.io = io
     this.clients = []
 
     this.setupEventHandlers(io)
@@ -24,7 +25,7 @@ class Manager {
   }
 
   initGame (sock1, sock2) {
-    let serv = new gs.GameServer(sock1, sock2)
+    let serv = new gs.GameServer(this.io, sock1, sock2)
   }
 }
 

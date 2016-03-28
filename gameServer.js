@@ -3,7 +3,8 @@
 let Game = require('./game.js')
 
 class GameServer {
-  constructor (sock1, sock2) {
+  constructor (io, sock1, sock2) {
+    this.io = io
     this.p1 = sock1
     this.p2 = sock2
 
@@ -18,12 +19,17 @@ class GameServer {
 
   initSocketEvents (sock) {
     sock.on('tryMove', function (data) {
-      let success = this.game.handleInput(data.source, data.target)
+      try {
+        this.game.handleInput(data.source, data.target)
 
-      if (success) {
         // TODO: only send updates and not whole state
-        this.p1.emit('commence', this.game.board.asStringList())
-        this.p2.emit('commence', this.game.board.asStringList())
+        this.io.emit('commence', this.game.board.asStringList())
+
+        this.io.emit('stateUpdate', {
+          currentPlayer: this.game.getCurrentPlayerName()
+        })
+      } catch (err) {
+        this.io.emit('error', {msg: err})
       }
     }.bind(this))
   }
@@ -32,8 +38,10 @@ class GameServer {
     console.log('Starting game')
     this.game.startGame()
 
-    this.p1.emit('commence', this.game.board.asStringList())
-    this.p2.emit('commence', this.game.board.asStringList())
+    this.io.emit('commence', this.game.board.asStringList())
+    this.io.emit('stateUpdate', {
+      currentPlayer: this.game.getCurrentPlayerName()
+    })
   }
 }
 

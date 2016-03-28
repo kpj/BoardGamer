@@ -19,6 +19,14 @@ class Client {
       self.board = boardData
       self.setState({board: self.board})
     })
+
+    this.socket.on('error', function (data) {
+      console.log(data.msg)
+    })
+
+    this.socket.on('stateUpdate', function (state) {
+      self.setState(state)
+    })
   }
 
   tryMove (source, target) {

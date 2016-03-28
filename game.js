@@ -229,11 +229,10 @@ class Game {
       this.attemptMove(startPos, endPos)
     } catch (err) {
       console.log(`Invalid move (${err}), try again`)
-      return false
+      throw err
     }
 
     this.nextTurn()
-    return true
   }
 
   attemptMove (startPos, endPos) {

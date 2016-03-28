@@ -32,7 +32,8 @@ class Board extends React.Component {
     this.client = new Client(this.setState.bind(this))
     this.state = {
       board: [[]],
-      firstClick: undefined
+      firstClick: undefined,
+      currentPlayer: 'undefined'
     }
   }
 
@@ -63,7 +64,14 @@ class Board extends React.Component {
       }
     }
 
-    return React.DOM.div({className: 'board'}, cells)
+    return React.createElement(
+      'div', {
+        className: 'root'
+      }, [
+        React.createElement('div', {key: 'statusBar'}, `Current player: ${this.state.currentPlayer}`),
+        React.DOM.div({className: 'board', key: 'board'}, cells)
+      ]
+    )
   }
 }
 
