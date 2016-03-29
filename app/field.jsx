@@ -11,7 +11,7 @@ class Cell extends React.Component {
   }
 
   render () {
-    let rowMarker = (this.props.y % 2 == 0) ? 'evenRow' : 'oddRow'
+    let rowMarker = (this.props.y % 2 === 0) ? 'evenRow' : 'oddRow'
     let classes = `board-cell ${rowMarker}`
     if (this.props.selected) {
       classes += ' selected-cell'
@@ -59,7 +59,7 @@ class Board extends React.Component {
           y: row_ind,
           onClick: this.handleCellClick.bind(this),
           key: `cell ${row_ind}x${col_ind}`,
-          selected: this.state.firstClick !== undefined && this.state.firstClick.x == col_ind && this.state.firstClick.y == row_ind
+          selected: this.state.firstClick !== undefined && this.state.firstClick.x === col_ind && this.state.firstClick.y === row_ind
         })
         cells.push(ele)
       }
